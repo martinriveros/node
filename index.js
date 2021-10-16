@@ -1,5 +1,5 @@
 const express = require('express');
-const desa5Controller = require ('./controller/desa5controller') // ya viene instanciado desde la exportacion
+const Controller = require ('./controller/controller') // ya viene instanciado desde la exportacion
 let app = express();
 let cors = require('cors')
 
@@ -12,20 +12,13 @@ app.get(("/"), async (req, res)=>{
 })
 
 app.get(("/productos"), async (req, res)=>{
-  let response = await desa5Controller.getAll()
+  let response = await Controller.getAll()
   res.json(response)
 })
 app.get(("/productoRandom"), async (req, res)=>{
-  let response = await desa5Controller.getRandom()
+  let response = await Controller.getRandom()
   res.json(response)
 })
-
-app.post(("/nuevoProducto"), async (req, res)=>{
-  await desa5Controller.createProduct(req.query)
-  let finalResult = await desa5Controller.getAll()
-  res.send(finalResult)
-})
-
 
 app.listen(PORT, ()=>{
   console.log(`servidor funcionando correctamente en ${PORT}`)
